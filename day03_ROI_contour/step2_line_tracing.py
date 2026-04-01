@@ -21,7 +21,7 @@ while True:
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
     # 이진화 (Otsu 사용)
-    _, binary = cv.threshold(gray, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
+    _, binary = cv.threshold(gray, 0, 255, cv.THRESH_BINARY_INV + cv.THRESH_OTSU)
 
     # 컨투어 검출
     contours, _ = cv.findContours(binary, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
