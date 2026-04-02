@@ -50,7 +50,7 @@ while True:
             vx, vy, x, y = cv.fitLine(largest_cnt, cv.DIST_L2, 0, 0.01, 0.01)
             
             # 각도 계산
-            angle = float(np.arctan2(vy, vx) * 180 / np.pi)
+            angle = np.arctan2(vy, vx) * 180 / np.pi
 
             # --- 새로 추가: 제어신호 생성 ---
             frame_center_x = frame.shape[1] // 2

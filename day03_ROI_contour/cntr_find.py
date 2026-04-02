@@ -14,7 +14,7 @@ ret, imthres = cv2.threshold(imgray, 127, 255, cv2.THRESH_BINARY_INV)
 # 가장 바깥쪽 컨투어에 대해 모든 좌표 반환 ---③
 contour, hierarchy = cv2.findContours(imthres, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 # 가장 바깥쪽 컨투어에 대해 꼭지점 좌표만 반환 ---④
-contour2, hierarchy = cv2.findContours(imthres, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+contour2, _ = cv2.findContours(imthres, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 # 각각의 컨투의 갯수 출력 ---⑤
 print('도형의 갯수: %d(%d)'% (len(contour), len(contour2)))
 
