@@ -3,15 +3,7 @@ import numpy as np
 import os
 import urllib.request
 
-# 이미지 로드
-def get_sample(filename, repo='opencv'):
-    if not os.path.exists(filename):
-        if repo == 'insightbook':
-            url = f"https://raw.githubusercontent.com/dltpdn/insightbook.opencv_project_python/master/img/{filename}"
-        else:  # opencv 공식
-            url = f"https://raw.githubusercontent.com/opencv/opencv/master/samples/data/{filename}"
-        urllib.request.urlretrieve(url, filename)
-    return filename
+
 def find_license_plate(img):
     """
     자동차 번호판을 찾는 함수
