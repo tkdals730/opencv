@@ -3,7 +3,6 @@ import os
 import numpy as np 
 import cv2 as cv 
 
-
 def get_sample(filename, repo='opencv'):
     if not os.path.exists(filename):
         if repo == 'insightbook':
@@ -13,25 +12,22 @@ def get_sample(filename, repo='opencv'):
         urllib.request.urlretrieve(url, filename)
     return filename
 
-img = cv.imread(get_sample('sudoku.png'))
-h, w = img.shape[:2]
-print(img.shape)
+#img = cv.imread(get_sample('messi5.jpg', repo='opencv'))
+img = cv.imread(get_sample('messi5.jpg'))
+gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
 
-# 3개의 점의 대응관계 
-#pts1 = np.float32([[50, 50], [200,50], [50, 200]])
-#pts2 = np.float32([[10, 100], [200,50], [100, 250]])
+# 가우시안 블러? 왜하는거지 근데?
+blurred = cv.GaussianBlur(gray, (5,5), 1.5)
 
-# 4개의 점의 대응관계 
-pts1 = np.float32([[0, 0], [w,0], [0, h], [w,h]])
-pts2 = np.float32([[0, 0], [w,0], [50,h], [w-50,h]])
-
-# 원근 변환 행렬 계산 
-M = cv.getPerspectiveTransform(pts1, pts2)
-dst = cv.warpPerspective(img, M, (w, h))
+# 캐니엣지
+edge = cv.Canny(blurred,00,150)
 
 cv.imshow("Original", img)
-cv.imshow("Perspective", dst)
+#cv.imshow("Scaling", res)
+#cv.imshow("Traslated", dst)
+#cv.imshow("Rotated", dst)
+cv.imshow("blurred", blurred)
+cv.imshow("Canny", edge)
 
 cv.waitKey(0)
 cv.destroyAllWindows()
-
