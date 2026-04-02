@@ -73,6 +73,16 @@ top_row2 = np.hstack([img, canny_color2])
 bottom_row2 = np.hstack([cleaned_color2])
 result2 = np.hstack([top_row2, bottom_row2])
 
+cv.putText(result, f'minThreshold: {threshold1}', (10, 30),
+            cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+cv.putText(result, f'maxThreshold: {threshold2}', (10, 60),
+            cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+cv.putText(result2, f'minThreshold: {threshold3}', (10, 30),
+            cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+cv.putText(result2, f'maxThreshold: {threshold4}', (10, 60),
+            cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+
 cv.imshow('Edge Detection + Morphology', result)
 cv.imshow('diff threshold', result2)
 cv.waitKey(0)
