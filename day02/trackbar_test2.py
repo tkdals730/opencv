@@ -19,7 +19,6 @@ cv.createTrackbar('V_min', 'Trackbar', 50, 255, nothing)
 cv.createTrackbar('V_max', 'Trackbar', 255, 255, nothing)
 
 
-
 #switch = '0 : OFF \n1 : ON'
 #cv.createTrackbar(switch, 'image', 0, 1, nothing)
 
@@ -47,6 +46,9 @@ while(1):
     v_min = cv.getTrackbarPos('V_min', 'Trackbar')
     v_max = cv.getTrackbarPos('V_max', 'Trackbar')
 
+    print(f"H: {h_min} - { h_max}, S: {s_min} - s{s_max}, V: {v_min}")
+
+
     lower = np.array([h_min, s_min, v_min])
     upper = np.array([h_max, s_max, v_max])
 
@@ -56,8 +58,6 @@ while(1):
     cv.imshow('Original', frame)
     cv.imshow('Mask', mask)
     cv.imshow('Result', result)
-
-    print(f"H: {h_min} - { h_max}, S: {s_min} - s{s_max}, V: {v_min}")
 
     if cv.waitKey(1) & 0xFF == ord('q'):
         break

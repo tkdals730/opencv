@@ -1,12 +1,12 @@
-# 라이브러리 import
+# 1.라이브러리 import
 import cv2 as cv
 import numpy as np
-# 웹캠을 열기
+# 2.웹캠을 열기
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
-# 감지할 색상의 HSV 범위 설정 빨간색
+# 3.감지할 색상의 HSV 범위 설정 빨간색
 lower = np.array([0, 120, 70])
 upper = np.array([10, 255, 255])
 
@@ -28,7 +28,7 @@ cv.createTrackbar('V_max', 'Trackbar', 255, 255, nothing)
 while True:
     #   웹캠에서 프레임 읽기
     ret, frame = cap.read()
-
+    
     #   HSV 색공간으로 변환
     hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
 
@@ -39,6 +39,7 @@ while True:
     s_max = cv.getTrackbarPos('S_max', 'Trackbar')
     v_min = cv.getTrackbarPos('V_min', 'Trackbar')
     v_max = cv.getTrackbarPos('V_max', 'Trackbar')
+
 
     #   마스크 픽셀 면적 계산
 #   면적과 임계값 비교하여 상태 결정
@@ -121,7 +122,7 @@ while True:
         break
 
 
-#   마스크 픽셀 면적 계산
+
 #   면적과 임계값 비교하여 상태 결정
    
    
