@@ -18,7 +18,6 @@ cv.createTrackbar('S_min', 'Trackbar', 50, 255, nothing)
 cv.createTrackbar('S_max', 'Trackbar', 255, 255, nothing)
 cv.createTrackbar('V_min', 'Trackbar', 50, 255, nothing)
 cv.createTrackbar('V_max', 'Trackbar', 255, 255, nothing)
-# 감지 면적 임계값 설정
 
 # 반복:
 #   웹캠에서 프레임 읽기
@@ -102,18 +101,44 @@ while True:
     else:
         print("[⚠️  조건 만족 contour 없음 - 빨간점 미표시]")
     
-    
+  
     
     
     #   마스크 생성 (특정 색상만 추출)
     mask = cv.inRange(hsv, lower, upper)
+
+      # 마스크 픽셀 면적 계산
+    area = cv.countNonZero(mask)
+
+    # 임계값
+    area_threshold = 5000
+
+    inverted = cv.bitwise_not(frame)
+    kernel = cv.getStructuringElement(cv.MORPH_CROSS, (5,5))
+    opened = cv.morphologyEx(inverted, cv.MORPH_OPEN, kernel)
+
+     # 상태 결정
+    if area > area_threshold:
+        status = "DETECTED"
+        color = (0, 255, 0)
+    else:
+        status = "NOT DETECTED"
+        color = (0, 0, 255)
+
+    # 터미널 출력
+    print(f"Area: {area}, Status: {status}")
+
+    # 화면 출력
+    cv.putText(frame, f"Status: {status}", (10, 100),
+            cv.FONT_HERSHEY_SIMPLEX, 1, color, 2)
+
     # 결과 화면
     result = cv.bitwise_and(frame, frame, mask=mask)
 
     if not ret:
         print("Can't receive frame (stream end?). Exiting ...")
         break
-    cv.imshow('frame',frame)
+    
     key = cv.waitKey(1)
    
     #   'q' 키 입력 시 루프 종료
@@ -126,9 +151,10 @@ while True:
    
    
     #   상태를 터미널과 화면에 표시
-    
+    cv.imshow('frame',frame)
     cv.imshow('Mask',mask)
     cv.imshow('Result',result)
+    cv.imshow("opening", opened)
 
 
 # 리소스 해제
