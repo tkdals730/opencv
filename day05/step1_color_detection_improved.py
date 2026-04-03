@@ -25,8 +25,18 @@ while True:
     #   웹캠에서 프레임 읽기
     ret, frame = cap.read()
     
+
+        # ROI 좌표 및 크기 설정 
+    x = 300
+    y = 100
+    w = 50
+    h = 50
+
+    # ROI 추출 : [ 높이 시작 : 높이 끝, 너비 시작: 너비 끝 ]
+    roi = frame[y:y+h, x:x+w]
+
     #   HSV 색공간으로 변환
-    hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
+    hsv = cv.cvtColor(roi, cv.COLOR_BGR2HSV)
 
     # 트랙바 값 읽기
     h_min = cv.getTrackbarPos('H_min', 'Trackbar')
@@ -111,7 +121,7 @@ while True:
     area = cv.countNonZero(mask)
 
     # 임계값
-    area_threshold = 5000
+    area_threshold = 500
 
     inverted = cv.bitwise_not(frame)
     kernel = cv.getStructuringElement(cv.MORPH_CROSS, (5,5))
@@ -133,22 +143,26 @@ while True:
             cv.FONT_HERSHEY_SIMPLEX, 1, color, 2)
 
     # 결과 화면
-    result = cv.bitwise_and(frame, frame, mask=mask)
+    result = cv.bitwise_and(roi, roi, mask=mask)
 
     if not ret:
         print("Can't receive frame (stream end?). Exiting ...")
         break
     
     key = cv.waitKey(1)
-   
-    #   'q' 키 입력 시 루프 종료
-    if cv.waitKey(1) & 0xFF == ord('q'):
+    # q 누르면 종료
+    if key & 0xFF == ord('q'):
         break
 
 
 
 #   면적과 임계값 비교하여 상태 결정
-   
+
+    print(roi.shape)
+
+    # ROI 영역에 사각형 그리기 
+    cv.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
+
    
     #   상태를 터미널과 화면에 표시
     cv.imshow('frame',frame)
