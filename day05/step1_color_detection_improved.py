@@ -29,8 +29,8 @@ while True:
         # ROI 좌표 및 크기 설정 
     x = 300
     y = 100
-    w = 50
-    h = 50
+    w = 100
+    h = 100
 
     # ROI 추출 : [ 높이 시작 : 높이 끝, 너비 시작: 너비 끝 ]
     roi = frame[y:y+h, x:x+w]
@@ -121,7 +121,7 @@ while True:
     area = cv.countNonZero(mask)
 
     # 임계값
-    area_threshold = 500
+    area_threshold = 1500
 
     inverted = cv.bitwise_not(frame)
     kernel = cv.getStructuringElement(cv.MORPH_CROSS, (5,5))
@@ -158,7 +158,7 @@ while True:
 
 #   면적과 임계값 비교하여 상태 결정
 
-    print(roi.shape)
+    print(f'roi.shape : {roi.shape}')
 
     # ROI 영역에 사각형 그리기 
     cv.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
