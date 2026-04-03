@@ -40,8 +40,6 @@ while True:
     v_min = cv.getTrackbarPos('V_min', 'Trackbar')
     v_max = cv.getTrackbarPos('V_max', 'Trackbar')
 
-
-    #   마스크 픽셀 면적 계산
 #   면적과 임계값 비교하여 상태 결정
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
@@ -108,8 +106,30 @@ while True:
     
     #   마스크 생성 (특정 색상만 추출)
     mask = cv.inRange(hsv, lower, upper)
+
+        # 마스크 픽셀 면적 계산
+    area = cv.countNonZero(mask)
+
+    # 임계값
+    area_threshold = 5000
     # 결과 화면
     result = cv.bitwise_and(frame, frame, mask=mask)
+
+
+    # 상태 결정
+    if area > area_threshold:
+        status = "DETECTED"
+        color = (0, 255, 0)
+    else:
+        status = "NOT DETECTED"
+        color = (0, 0, 255)
+
+    # 터미널 출력
+    print(f"Area: {area}, Status: {status}")
+
+    # 화면 출력
+    cv.putText(frame, f"Status: {status}", (10, 100),
+            cv.FONT_HERSHEY_SIMPLEX, 1, color, 2)
 
     if not ret:
         print("Can't receive frame (stream end?). Exiting ...")
