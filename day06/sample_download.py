@@ -1,6 +1,5 @@
 import urllib.request
 import os
-import cv2 as cv
 
 def get_sample(filename, repo='insightbook'):
     """부교 또는 OpenCV 공식 샘플 이미지 자동 다운로드
@@ -21,4 +20,4 @@ def get_sample(filename, repo='insightbook'):
     return filename
 
 # 사용 방법
-img = cv.imread(get_sample('coins.png', repo='insightbook'))
+# img = cv.imread(get_sample('morphological.png', repo='insightbook'))
