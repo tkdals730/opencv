@@ -13,7 +13,7 @@ thresholds = [30, 50, 70, 100]
 
 for threshold in thresholds:
     lines = cv.HoughLinesP(edges, rho=1, theta=np.pi/180,
-                           threshold=threshold, minLineLength=30, maxLineGap=10)
+                           threshold=threshold, minLineLength=50, maxLineGap=2)
     
     result = img_resized.copy()
     if lines is not None:
