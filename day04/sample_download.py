@@ -1,5 +1,6 @@
 import urllib.request
 import os
+import cv2 as cv
 
 
 def get_sample(filename, repo='insightbook'):

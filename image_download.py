@@ -21,4 +21,4 @@ def get_sample(filename, repo='insightbook'):
     return filename
 
 # 사용 방법
-img = cv.imread(get_sample('mario.png', repo='opencv'))
+img = cv.imread(get_sample('coins.png', repo='insightbook'))
