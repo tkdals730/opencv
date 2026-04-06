@@ -15,7 +15,7 @@ img_resized = cv.resize(img, (int(img.shape[1]*scale), int(img.shape[0]*scale)))
 gray = cv.cvtColor(img_resized, cv.COLOR_BGR2GRAY)
 
 # 3단계: Canny 에지 검출
-edges = cv.Canny(gray, 240, 250, apertureSize=3)
+edges = cv.Canny(gray, 190, 200, apertureSize=3)
 
 # 4단계: Hough Line Transform (선분 방식)
 lines = cv.HoughLinesP(edges, rho=1, theta=np.pi/180,
