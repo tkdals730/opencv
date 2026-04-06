@@ -3,6 +3,7 @@ import serial
 import time
 import cv2 as cv
 import numpy as np
+
 # 2.웹캠을 열기
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
@@ -16,9 +17,11 @@ def nothing(x):
 ser = serial.Serial('COM5', 9600)
 time.sleep(2) 
 # 이전 상태 변수 초기화
-prev_status = ""
+prev_status = "NOT DETECTED"
 # FPS
 prev_time = time.time()
+# 감지시간
+detect_start_time = None
 # 트랙바 만들기
 cv.namedWindow('Trackbar')
 cv.createTrackbar('H_min', 'Trackbar', 35, 179, nothing)
@@ -140,6 +143,12 @@ while True:
     else:
         status = "NOT DETECTED"
         color = (0, 0, 255)
+    
+    if status == "DETECTED" and prev_status == "NOT DETECTED":
+        detect_start_time = time.time()
+        print(f"[감지 시작 시간] {detect_start_time:.3f}")
+    
+    
     # 상태가 바뀔 때만 전송
     if status != prev_status:
         if status == "DETECTED":
@@ -174,7 +183,12 @@ while True:
 
     # ROI 영역에 사각형 그리기 
     cv.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
+    
 
+    if status == "DETECTED" and detect_start_time is not None:
+        response_time = time.time() - detect_start_time
+        cv.putText(frame, f"Response: {response_time:.3f}s", (10, 180),
+                cv.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
     # FPS 출력
     current_time = time.time()
     fps = 1 / (current_time - prev_time)
