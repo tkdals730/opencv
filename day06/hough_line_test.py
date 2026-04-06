@@ -19,7 +19,7 @@ edges = cv.Canny(gray, 240, 250, apertureSize=3)
 
 # 4단계: Hough Line Transform (선분 방식)
 lines = cv.HoughLinesP(edges, rho=1, theta=np.pi/180,
-                       threshold=50, minLineLength=30, maxLineGap=10)
+                       threshold=70, minLineLength=30, maxLineGap=10)
 
 # 5단계: 검출된 직선을 이미지에 그리기
 result = img_resized.copy()
