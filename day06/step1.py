@@ -56,6 +56,7 @@ cv.imshow('Result', result_img)
 cv.imshow('Result Map', result)
 cv.waitKey(0)
 cv.destroyAllWindows()
+print(max_val )
 
 # 결과 저장
 cv.imwrite('template_matching_result.jpg', result_img)
