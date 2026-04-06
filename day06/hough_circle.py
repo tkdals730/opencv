@@ -9,7 +9,7 @@ gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 blur = cv2.GaussianBlur(gray, (3,3), 0)
 # 허프 원 변환 적용( dp=1.5, minDist=30, cany_max=200 ) ---③
 #circles = cv2.HoughCircles(blur, cv2.HOUGH_GRADIENT, 1.5, 30, None, 200)
-circles = cv2.HoughCircles(blur, cv2.HOUGH_GRADIENT, 1.2, 30, None, 200, 30, minRadius=40, maxRadius=70)
+circles = cv2.HoughCircles(blur, cv2.HOUGH_GRADIENT, 1.2, 30, None, 200)
 if circles is not None:
     circles = np.uint16(np.around(circles))
     for i in circles[0,:]:
