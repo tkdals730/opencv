@@ -29,10 +29,10 @@ print(f"img1 shape: {img1.shape}, img2 shape: {img2.shape}")
 # TODO: 아래 중 하나를 선택해서 코드 작성하세요
 
 # 1) SIFT (느리지만 정확): 
-# sift = cv.SIFT_create()
+sift = cv.SIFT_create()
 
 # 2) ORB (빠르지만 덜 정확): 
-sift = cv.ORB_create()
+# sift = cv.ORB_create()
 
 # ========== Step 3: 키포인트와 디스크립터 추출 ==========
 
@@ -54,16 +54,16 @@ print(f"Keypoints found - img1: {len(kp1)}, img2: {len(kp2)}")
 
 # SIFT 사용 시:
 
-# FLANN_INDEX_KDTREE = 1
-# index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
-# search_params = dict(checks=50)
+FLANN_INDEX_KDTREE = 1
+index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
+search_params = dict(checks=50)
 
 # ORB 사용 시:
 
-FLANN_INDEX_LSH = 6
-index_params = dict(algorithm=FLANN_INDEX_LSH, 
-                      table_number=12, key_size=20, multi_probe_level=2)
-search_params = dict(checks=50)
+# FLANN_INDEX_LSH = 6
+# index_params = dict(algorithm=FLANN_INDEX_LSH, 
+#                       table_number=12, key_size=20, multi_probe_level=2)
+# search_params = dict(checks=50)
 
 flann = cv.FlannBasedMatcher(index_params, search_params)
 
@@ -81,14 +81,12 @@ good_matches = []
 for match_pair in matches:
 
     if len(match_pair) == 2:
-
         m, n = match_pair
-
         # TODO: 
         # m.distance < 0.7 * n.distance 를 확인하고
-        m.distance < 0.7 * n.distance
+        if m.distance < 0.7 * n.distance:
         # 조건을 만족하면 good_matches에 추가하세요
-        good_matches.append(m)
+            good_matches.append(m)
 print(f"Good matches after Lowe's ratio test: {len(good_matches)}")
 
 # ========== Step 7: 시각화 ==========
@@ -106,3 +104,4 @@ if len(good_matches) >= 10:
 else:
 
     print("Not enough good matches!")
+plt.imshow(img3, 'gray'),plt.show()
