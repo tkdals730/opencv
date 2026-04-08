@@ -15,7 +15,7 @@ img = cv2.imread('walker3.jpg')
 
 # Step 3-2: HOG를 이용한 보행자 검출
 # 이미지 스케일링
-scale = 0.4
+scale = 0.7
 h, w = img.shape[:2]
 img = cv2.resize(img, (int(w*scale), int(h*scale)))
 
@@ -26,7 +26,7 @@ hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 # ③ 이미지에서 보행자 검출 ---
 detections, weights = hog.detectMultiScale(
     img,
-    winStride=(8, 8),      # 스캔 윈도우 이동 크기
+    winStride=(4, 4),      # 스캔 윈도우 이동 크기
     padding=(16, 16),      # 윈도우 주변 패딩
     scale=1.05             # 이미지 피라미드 스케일
 )
@@ -53,7 +53,7 @@ cv2.destroyAllWindows()
 # Step 3-3: 신뢰도 필터링으로 오탐 감소
 # 신뢰도 필터링
 
-CONFIDENCE_THRESHOLD = 0.7  # 임계값 조정 (0.3 ~ 0.9)
+CONFIDENCE_THRESHOLD = 0.9  # 임계값 조정 (0.3 ~ 0.9)
 result_filtered = img.copy()
 filtered_count = 0
 
