@@ -8,6 +8,7 @@ k = list(range(10)) # [0,1,2,3,4,5,6,7,8,9] 레이블 셋
 def load():
     global data
     # 0~9 각각 500(5x100)개, 총5000(50x100)개, 한 숫자당 400(20x20)픽셀
+    # image = cv2.imread(get_sample('digits.png'))
     image = cv2.imread(get_sample('digits.png'))
     gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
     # 숫자 한개(20x20)씩 구분하기 위해 행별(50)로 나누고 열별(100)로 나누기
