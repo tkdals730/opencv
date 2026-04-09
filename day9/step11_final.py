@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pytesseract
 #plt.style.use('dark_background')
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 img_ori = cv2.imread('1.jpg')
 

@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import pytesseract
 #plt.style.use('dark_background')
 
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 img_ori = cv2.imread('1.jpg')
 
 height, width, channel = img_ori.shape
@@ -266,16 +267,16 @@ for i, plate_img in enumerate(plate_imgs):
                 plate_max_y = y + h
                 
     img_result = plate_img[plate_min_y:plate_max_y, plate_min_x:plate_max_x]
-    #cv2.imwrite(f'step_ocr_1_cropped_{i}.png', img_result)
+    cv2.imwrite(f'step_ocr_1_cropped_{i}.png', img_result)
 
     img_result = cv2.GaussianBlur(img_result, ksize=(3, 3), sigmaX=0)
-    #cv2.imwrite(f'step_ocr_2_blurred_{i}.png', img_result)
+    cv2.imwrite(f'step_ocr_2_blurred_{i}.png', img_result)
 
     _, img_result = cv2.threshold(img_result, thresh=0.0, maxval=255.0, type=cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-    #cv2.imwrite(f'step_ocr_3_threshed_{i}.png', img_result)
+    cv2.imwrite(f'step_ocr_3_threshed_{i}.png', img_result)
 
     img_result = cv2.copyMakeBorder(img_result, top=10, bottom=10, left=10, right=10, borderType=cv2.BORDER_CONSTANT, value=(0,0,0))
-    #cv2.imwrite(f'step_ocr_4_bordered_{i}.png', img_result)
+    cv2.imwrite(f'step_ocr_4_bordered_{i}.png', img_result)
 
     # 이미지 반전 (흰 배경 + 검은 글자로)
     img_result_inverted = cv2.bitwise_not(img_result)
