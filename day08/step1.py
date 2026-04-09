@@ -26,6 +26,8 @@ criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
 
 ret, label, center = cv2.kmeans(data, K, None, criteria, 11, cv2.KMEANS_RANDOM_CENTERS)
 
+# 픽셀갯수 
+
 print("\n클러스터별 픽셀 개수:")
 
 for i in range(K):
